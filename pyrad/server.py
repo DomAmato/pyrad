@@ -100,6 +100,7 @@ class Server(host.Host):
         self.coa_enabled = coa_enabled
         self.coafds = []
 
+        logger.debug("Binding to addresses: %s", addresses)
         for addr in addresses:
             self.BindToAddress(addr)
 
@@ -131,6 +132,7 @@ class Server(host.Host):
         :param addr: IP address to listen on
         :type  addr: string
         """
+        logger.info('Binding to address %s on ports %d, %d', addr, self.authport, self.acctport)
         addrFamily = self._GetAddrInfo(addr)
         for (family, address) in addrFamily:
             logger.debug("Binding %s socket to %s", family, address)
@@ -332,6 +334,7 @@ class Server(host.Host):
         self._poll = select.poll()
         self._fdmap = {}
         self._PrepareSockets()
+
         logger.debug('Server listening on following sockets: %s', self._fdmap)
         logger.debug('Auth sockets are: %s', self._realauthfds)
         logger.debug('Acct sockets are: %s', self._realacctfds)

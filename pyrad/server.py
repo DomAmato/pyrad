@@ -133,6 +133,7 @@ class Server(host.Host):
         """
         addrFamily = self._GetAddrInfo(addr)
         for (family, address) in addrFamily:
+            logger.debug("Binding %s socket to %s", family, address)
             if self.auth_enabled:
                 authfd = socket.socket(family, socket.SOCK_DGRAM)
                 authfd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -309,6 +310,7 @@ class Server(host.Host):
         :param  fd: socket to read packet from
         :type   fd: socket class instance
         """
+        logger.debug('got message on socket: %s', fd)
         if self.auth_enabled and fd.fileno() in self._realauthfds:
             pkt = self._GrabPacket(lambda data, s=self: s.CreateAuthPacket(packet=data), fd)
             self._HandleAuthPacket(pkt)
@@ -330,6 +332,10 @@ class Server(host.Host):
         self._poll = select.poll()
         self._fdmap = {}
         self._PrepareSockets()
+        logger.debug('Server listening on following sockets: %s', self._fdmap)
+        logger.debug('Auth sockets are: %s', self._realauthfds)
+        logger.debug('Acct sockets are: %s', self._realacctfds)
+        logger.debug('COA sockets are: %s', self._realcoafds)
 
         while True:
             for (fd, event) in self._poll.poll():

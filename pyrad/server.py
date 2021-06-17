@@ -335,7 +335,6 @@ class Server(host.Host):
         logger.debug('Server listening on following sockets: %s', self._fdmap)
         logger.debug('Auth sockets are: %s', self._realauthfds)
         logger.debug('Acct sockets are: %s', self._realacctfds)
-        logger.debug('COA sockets are: %s', self._realcoafds)
 
         while True:
             for (fd, event) in self._poll.poll():

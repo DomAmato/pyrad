@@ -32,8 +32,7 @@ include = [
 repository = "https://github.com/pyradius/pyrad"
 
 [tool.poetry.dependencies]
-python = "^2.7 || ^3.6"
-six = "^1.15.0"
+python = "^3.6"
 netaddr = "^0.8"
 
 [tool.poetry.dev-dependencies]

@@ -1,2 +1,1 @@
-cryptography~=3.3.0
-netaddr~=0.8
+netaddr
